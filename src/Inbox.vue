@@ -16,7 +16,7 @@ import Messages from "./Messages.vue";
         },
         computed:{
             incomingMessages(){
-                return this.data.messages.filter(function (message) {
+                return this.data.messages.filter((message) => {
                     return (message.type = 'incoming' && !message.isDeleted);                    
                 })
             }
