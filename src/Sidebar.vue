@@ -82,7 +82,7 @@
           },
           trashMessages(){
               return this.messages.filter(function (message) {
-                    return (message.isDelelted === true)                  
+                    return message.isDelelted === true                 
               });
           }
       }
