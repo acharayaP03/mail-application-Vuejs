@@ -8,6 +8,15 @@
             <button class="btn btn-danger" @click="data.message.isDeleted = true" :disabled="data.message.isDeleted">
                 <i class="fa fa-trash-o"></i>&nbsp; {{ data.message.isDeleted ? 'Deleted' : 'Delete' }}
             </button>
+            <template v-if="typeof data.message.isRead !== 'undefined'">
+            <button class="btn btn-primary" @click="data.message.isRead = false" :disabled="!data.message.isRead">
+                <i class="fa fa-envelope-open"></i>&nbsp;Mark as read
+            </button>
+
+            <button class="btn btn-primary" @click="data.message.isRead = true" :disabled="data.message.isRead">
+                <i class="fa fa-envelope"></i>&nbsp;Mark as unread
+            </button>
+            </template>
         </div>
 
         <p><strong>Date:</strong> {{ data.message.date.fromNow() }}</p>
