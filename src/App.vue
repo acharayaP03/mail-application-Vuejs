@@ -12,14 +12,13 @@
     import Content from './Content.vue';
     import messages from './data/messages';
 
-    
     export default {
-        data(){
-            return{
+        data() {
+            return {
                 messages: messages
-            }
+            };
         },
-        components:{
+        components: {
             appSidebar: Sidebar,
             appContent: Content
         }
