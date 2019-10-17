@@ -1,7 +1,17 @@
 <template>
     <div class="inbox-body">
+        <div class="mail-option">
+            <button class="btn btn-primary" @click="navigateBack">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp; Back
+            </button>
+
+            <button class="btn btn-danger" @click="data.message.isDeleted = true" :disabled="data.message.isDeleted">
+                <i class="fa fa-trash-o"></i>&nbsp; {{ data.message.isDeleted ? 'Deleted' : 'Delete' }}
+            </button>
+        </div>
+
         <p><strong>Date:</strong> {{ data.message.date.fromNow() }}</p>
-        <p><strong>From:</strong> {{ data.message.from.name }} 	&lt;{{ data.message.from.email }}&gt;</p>
+        <p><strong>From:</strong> {{ data.message.from.name }} &lt;{{ data.message.from.email }}&gt;</p>
         <hr>
 
         <div v-html="data.message.content" class="message"></div>
@@ -10,7 +20,7 @@
             <h4>Attachments</h4>
 
             <ul>
-                <li v-for="attachment in data.message.attachments">
+                <li v-for="(attachment, index) in data.message.attachments" :key="index">
                     <i class="fa fa-paperclip"></i> {{ attachment.fileName }} ({{ attachment.size | formatBytes }})
                 </li>
             </ul>
@@ -19,6 +29,8 @@
 </template>
 
 <script>
+    import { eventBus } from './main';
+
     export default {
         props: {
             data: {
@@ -26,9 +38,20 @@
                 required: true
             },
         },
-        activated(){
-            if(typeof this.data.message.isRead !== 'undefined'){
+        activated() {
+            if (typeof this.data.message.isRead !== 'undefined') {
                 this.data.message.isRead = true;
+            }
+        },
+        methods: {
+            navigateBack() {
+                let previousView = this.$parent.previousView;
+
+                eventBus.$emit('changeView', {
+                    tag: previousView.tag,
+                    title: previousView.title,
+                    data: previousView.data
+                });
             }
         },
         filters: {
