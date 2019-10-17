@@ -8,7 +8,9 @@
                 <span class="email-address">acharya.p@outlook.com</span>
             </div>
         </div>
-
+        <div class="compose-wrapper">
+            <Compose />
+        </div>
         <ul class="inbox-nav">
             <li :class="{ active: activeView == 'app-inbox' }">
                 <a href="#" @click.prevent="navigate('app-inbox', 'Inbox')">
@@ -39,6 +41,7 @@
 
 <script>
     import { eventBus } from './main';
+    import Compose from './Compose.vue';
 
     export default {
         props: {
@@ -86,6 +89,9 @@
                     return message.isDeleted === true;
                 });
             }
+        },
+        components:{
+            Compose
         }
     }
 </script>

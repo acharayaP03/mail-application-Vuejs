@@ -21,6 +21,10 @@
             };
         },
         created(){
+            eventBus.$on('sentMessage',(data) =>{
+                let temp = [data.message];
+                this.messages = temp.concat(this.messages.slice(0))
+            });
             eventBus.$on('refreshMessages', () => {
                 let randomIndex = Math.floor(Math.random() * randomMessages.length);
                 let temp = [randomMessages[randomIndex]];
